@@ -123,7 +123,7 @@
                 @endforeach
                 
                
-                <!-- Add more products here -->
+                <!-- Srijon vai magna kamla khatse -->
             </tbody>
         </table>
     </div>
