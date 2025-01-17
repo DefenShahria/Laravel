@@ -15,16 +15,17 @@
             background-color: #f0f2f5;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            padding-top: 20px;
             height: 100vh;
         }
         .container {
             background-color: #fff;
-            padding: 20px;
+            padding: 40px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 800px;
+            max-width: 1000px;
         }
         h2 {
             text-align: center;
@@ -60,6 +61,7 @@
             text-align: center;
             flex: 1;
             margin: 0 5px;
+            transition: background-color 0.3s;
         }
         .nav-buttons a:hover {
             background-color: #0056b3;
@@ -67,18 +69,30 @@
         .action-buttons {
             display: flex;
             gap: 10px;
+            justify-content: center;
         }
-        .action-buttons button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
+        .action-buttons a {
+            display: inline-block;
+            padding: 8px 12px;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
         }
-        .action-buttons button.edit {
-            color: #28a745;
+        .action-buttons .edit-button {
+            background-color: #28a745;
         }
-        .action-buttons button.delete {
-            color: #dc3545;
+        .action-buttons .edit-button:hover {
+            background-color: #218838;
+        }
+        .action-buttons .delete-button {
+            background-color: #dc3545;
+        }
+        .action-buttons .delete-button:hover {
+            background-color: #c82333;
+        }
+        .action-buttons i {
+            margin-right: 5px;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -103,27 +117,24 @@
             </thead>
             <tbody>
                 @foreach($posts as $post)
-                
                     <tr>
-                    <td>{{$post->id}}</td>
-                    <td>{{$post->name}}</td>
-                    <td>{{$post->description}}</td>
-                    <td><img src="images/{{$post->image}}" width="80px" alt=""></td>
-                    <td>{{$post->price}}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="edit"><i class="fas fa-edit"></i></button>
-                            
-                            <button class="delete"><i class="fas fa-trash-alt"></i></button>
-                        </div>
-                    </td>
-                </tr>
-                
-                
+                        <td>{{$post->id}}</td>
+                        <td>{{$post->name}}</td>
+                        <td>{{$post->description}}</td>
+                        <td><img src="images/{{$post->image}}" width="80px" alt=""></td>
+                        <td>{{$post->price}}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{{ route('edit', $post->id) }}" class="edit-button">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a href="{{ route('delete', $post->id) }}" class="delete-button">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
                 @endforeach
-                
-               
-                <!-- Srijon vai magna kamla khatse -->
             </tbody>
         </table>
     </div>

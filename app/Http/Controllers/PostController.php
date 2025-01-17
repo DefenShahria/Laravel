@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Faker\Provider\ar_EG\Text;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -23,7 +24,7 @@ class PostController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'image' => 'nullable|mimes:jpeg,jpg,png',
+            'image' => 'nullable|mimes:jpeg,jpg,png,bmp',
         ]);
 
         $fileName = null;
@@ -43,5 +44,18 @@ class PostController extends Controller
 
         // return $request;
          return redirect()->route('home')->with('success', 'Item successfully added!');
+    }
+
+
+    public function editData($id)
+    {
+        // dd($id);
+        $post = Post::findOrFail($id);
+        return view('edit',['ourPost' =>$post]);
+    }
+
+    public function deleteData()
+    {
+        return "post deleted";
     }
 }
