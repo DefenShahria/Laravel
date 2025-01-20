@@ -94,6 +94,28 @@
         .action-buttons i {
             margin-right: 5px;
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination .page-link {
+            text-decoration: none;
+            padding: 8px 12px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            color: #007bff;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .pagination .page-link:hover {
+            background-color: #f0f2f5;
+        }
+        .pagination .active .page-link {
+            background-color: #007bff;
+            color: #fff;
+            pointer-events: none;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -118,11 +140,11 @@
             <tbody>
                 @foreach($posts as $post)
                     <tr>
-                        <td>{{$post->id}}</td>
-                        <td>{{$post->name}}</td>
-                        <td>{{$post->description}}</td>
-                        <td><img src="images/{{$post->image}}" width="80px" alt=""></td>
-                        <td>{{$post->price}}</td>
+                        <td>{{ $post->id }}</td>
+                        <td>{{ $post->name }}</td>
+                        <td>{{ $post->description }}</td>
+                        <td><img src="images/{{ $post->image }}" width="80px" alt="Product Image"></td>
+                        <td>{{ $post->price }}</td>
                         <td>
                             <div class="action-buttons">
                                 <a href="{{ route('edit', $post->id) }}" class="edit-button">
@@ -137,6 +159,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination">
+            {{ $posts->links('pagination::bootstrap-4') }}
+        </div>
     </div>
 </body>
 </html>

@@ -15,7 +15,7 @@ class PostController extends Controller
 
     public function product()
     {
-        return view('product',['posts'=>Post::all()]);
+        return view('product',['posts'=>Post::paginate(5)]);
     }
 
     public function store(Request $request)
@@ -54,8 +54,38 @@ class PostController extends Controller
         return view('edit',['ourPost' =>$post]);
     }
 
-    public function deleteData()
+    public function deleteData($id)
     {
-        return "post deleted";
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->route('product')->with('success', 'Item successfully deleted!');
     }
+
+
+    public function updateData($id, Request $request)
+    {
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric',
+        'image' => 'nullable|mimes:jpeg,jpg,png,bmp',
+    ]);
+
+    $post = Post::findOrFail($id);
+    $post->name = $request->name;
+    $post->description = $request->description;
+    $post->price = $request->price;
+
+    if ($request->hasFile('image')) {
+        $extension = $request->image->getClientOriginalExtension();
+        $fileName = time() . '.' . $extension;
+        $request->image->move(public_path('images'), $fileName);
+        $post->image = $fileName;
+    }
+
+     $post->save();
+
+     return redirect()->route('product')->with('success', 'Item successfully updated!');
+}
+
 }

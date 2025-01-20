@@ -57,18 +57,7 @@
             justify-content: space-between;
             gap: 10px;
         }
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            color: #fff;
-        }
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
+        button, 
         .nav-buttons a {
             text-decoration: none;
             padding: 10px 20px;
@@ -78,7 +67,10 @@
             text-align: center;
             flex: 1;
             margin: 0 5px;
+            border: none;
+            cursor: pointer;
         }
+        button:hover, 
         .nav-buttons a:hover {
             background-color: #0056b3;
         }
@@ -93,15 +85,15 @@
 <body>
     <div class="edit-container">
         <h2>Edit Product</h2>
-        <form id="editForm">
+        <form id="editForm" method="POST" action="{{ route('update', $ourPost->id) }}" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" value="{{$ourPost->name}}">
             </div>
             <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea id="name" name="name" rows="4">{{$ourPost->description}}</textarea>
-
+                <textarea id="description" name="description" rows="4">{{$ourPost->description}}</textarea>
             </div>
             <div class="form-group">
                 <label for="price">Price:</label>
@@ -112,9 +104,9 @@
                 <input type="file" id="image" name="image" value="{{$ourPost->image}}">
             </div>
             <div class="nav-buttons">
-            <a href="{{ route('product') }}">Save</a>
-            <a href="{{ route('home') }}">Home</a>
-        </div>
+                <button type="submit">Update</button>
+                <a href="{{ route('product') }}">Product</a>
+            </div>
         </form>
     </div>
 </body>

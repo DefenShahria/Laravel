@@ -10,3 +10,5 @@ Route::get('/product', [PostController::class, 'product'])->name('product');
 Route::post('/store', [PostController::class, 'store'])->name('store');
 Route::get('/edit/{id}', [PostController::class, 'editData'])->name('edit');
 Route::get('/delete/{id}', [PostController::class, 'deleteData'])->name('delete');
+Route::post('/update/{id}', [PostController::class, 'updateData'])->name('update');
+Route::get('/delete/{id}', [PostController::class, 'deleteData'])->name('delete');
